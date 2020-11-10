@@ -16,6 +16,8 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongo-morgan": "^2.0.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.9"
   }
 }

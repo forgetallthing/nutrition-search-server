@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <input type="button" value="123" onclick="fetchData()" />
+        <script>
+            function fetchData() {
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    xhr = new ActiveXObject();
+                } else {
+                    xhr = null;
+                }
+                if (xhr) {
+                    xhr.open('GET', '../fetchData/fetchData');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                        }
+                    };
+                    xhr.send(null);
+                }
+            }
+        </script>
+    </body>
+</html>

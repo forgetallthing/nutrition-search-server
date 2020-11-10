@@ -14,6 +14,7 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const foodRouter = require('./routes/food');
+const fetchDataRouter = require('./routes/fetchData');
 // const loginRouter = require('./routes/login');
 const app = express();
 
@@ -176,6 +177,7 @@ app.use(
 // app.use('/login', loginRouter);
 app.use('/', indexRouter);
 app.use('/food', foodRouter);
+app.use('/fetchData', fetchDataRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
