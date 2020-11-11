@@ -4,6 +4,7 @@ const rp = require('request-promise-native');
 const cheerio = require('cheerio');
 const classDao = require('../dao/foodClassDao');
 const foodDataDao = require('../dao/foodDataDao');
+const dicDao = require('../dao/dicDao');
 
 const elementDic = [
     { code: 'Edible', name: '食部' },
@@ -42,12 +43,16 @@ router.get('/fetchData', async (req, res, next) => {
     let classInfo = await getCategoryInfo();
     await classDao.delClass();
     await classDao.saveClass(classInfo.classToplist);
-    await getFoodInfo(classInfo.classlist[0]);
-    // classInfo.classlist.forEach(v=>{
-    //     await getFoodInfo(v)
-    // })
-
-    res.send({ apple: [] });
+    elementDic.forEach((v) => (v.group = 'element'));
+    await dicDao.delDic();
+    await dicDao.saveDic(elementDic);
+    for (let i = 0; i < classInfo.classlist.length; i++) {
+        let v = classInfo.classlist[i];
+        await getFoodInfo(v);
+        console.log(`fetch ${v.className}`);
+    }
+    console.log('finish');
+    res.send({ finish: 'ok' });
 });
 
 async function getFoodInfo(info) {
