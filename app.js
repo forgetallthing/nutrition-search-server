@@ -177,7 +177,7 @@ app.use(
 // app.use('/login', loginRouter);
 app.use('/', indexRouter);
 app.use('/food', foodRouter);
-app.use('/fetchData', fetchDataRouter);
+// app.use('/fetchData', fetchDataRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

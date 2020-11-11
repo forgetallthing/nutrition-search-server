@@ -45,6 +45,7 @@ const elementDic = [
     { code: 'PUFA', name: '多不饱和脂肪酸', class: 'C4' },
 ];
 
+
 router.get('/fetchData', async (req, res, next) => {
     let classInfo = await getCategoryInfo();
     await classDao.delClass();
