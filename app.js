@@ -162,8 +162,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 //启用日志
-const logMongoUrl = 'mongodb://' + Config.sys_mongo + '/' + Config.log_db + '?authSource=admin';
-if (Config.DB_verify) sessionMongoUrl = 'mongodb://' + Config.DB_USER + ':' + Config.DB_PW + '@' + Config.sys_mongo + '/' + Config.log_db + '?authSource=admin';
+let logMongoUrl = 'mongodb://' + Config.sys_mongo + '/' + Config.log_db + '?authSource=admin';
+if (Config.DB_verify) logMongoUrl = 'mongodb://' + Config.DB_USER + ':' + Config.DB_PW + '@' + Config.sys_mongo + '/' + Config.log_db + '?authSource=admin';
 app.use(
     mongoMorgan(
         logMongoUrl,
