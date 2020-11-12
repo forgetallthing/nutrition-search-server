@@ -9,6 +9,12 @@ async function saveFoodData(filter, set, upsert) {
 async function findPage(param) {
     let filter = {};
     let sort = {};
+    if (param.classCode) {
+        filter.classCode = param.classCode;
+    }
+    if (param.searchWord) {
+        filter.name = { $regex: param.searchWord };
+    }
     if (param.lastValue) {
         filter[param.sortCol] = { $gt: param.lastValue };
     }
