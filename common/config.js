@@ -4,7 +4,7 @@ const Config = {
     log_db: 'log_ns',
     DB_verify: true,
     DB_USER: 'adminUser',
-    DB_PW: 'adminPass',
+    DB_PW: 'WLNdpl20201112',
     // HOME_PAGE: 'eventLoopShow',
     HOME_PAGE: 'index',
     errLog: '../app.err',
