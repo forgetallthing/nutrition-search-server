@@ -6,9 +6,10 @@ async function saveFoodData(filter, set, upsert) {
     await getCollection().updateOne(filter, { $set: set }, { upsert: upsert });
 }
 
-async function findPage(param, project) {
+async function findPage(param) {
     let filter = {};
     let sort = {};
+    let project = { _id: 0, code: 1, name: 1, info: 1, classCode: 1, className: 1 };
     if (param.classCode) {
         filter.classCode = param.classCode;
     }
@@ -18,12 +19,9 @@ async function findPage(param, project) {
     if (param.lastValue) {
         filter[param.sortCol] = { $gt: param.lastValue };
     }
-    if (param.elements) {
-        let elements = JSON.parse(param.elements);
-        elements.forEach((v) => {
-            project[v] = 1;
-        });
-    }
+    param.elements.forEach((v) => {
+        project[v] = 1;
+    });
     sort[param.sortCol || 'code'] = param.direction ? parseInt(param.direction) : 1;
     let pageSize = 6;
 
