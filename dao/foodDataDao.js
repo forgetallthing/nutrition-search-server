@@ -31,7 +31,12 @@ async function findPage(param) {
     return await getCollection().find(filter).project(project).sort(sort).limit(pageSize).toArray();
 }
 
+async function findFoodInfo(filter, cols) {
+    return await getCollection().findOne(filter || {}, { projection: cols || { _id: 0 } });
+}
+
 module.exports = {
     saveFoodData,
     findPage,
+    findFoodInfo,
 };

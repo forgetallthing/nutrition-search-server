@@ -11,9 +11,8 @@ router.get('/getList', async function (req, res, next) {
 
 router.get('/getfoodInfo', async function (req, res, next) {
     let p = req.query;
-    let list = await foodDataDao.findPage(p);
-    res.send({ list });
+    let info = await foodDataDao.findFoodInfo({ code: JSON.parse(p.code) });
+    res.send({ info });
 });
-
 
 module.exports = router;
