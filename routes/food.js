@@ -4,10 +4,16 @@ const foodDataDao = require('../dao/foodDataDao');
 
 router.get('/getList', async function (req, res, next) {
     let p = req.query;
-    p.page = parseInt(p.page);
     p.lastValue = parseInt(p.lastValue);
     let list = await foodDataDao.findPage(p);
     res.send({ list });
 });
+
+router.get('/getfoodInfo', async function (req, res, next) {
+    let p = req.query;
+    let list = await foodDataDao.findPage(p);
+    res.send({ list });
+});
+
 
 module.exports = router;

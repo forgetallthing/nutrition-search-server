@@ -9,7 +9,7 @@ async function saveFoodData(filter, set, upsert) {
 async function findPage(param) {
     let filter = {};
     let sort = {};
-    let project = { _id: 0 };
+    let project = { _id: 0, code: 1, name: 1, info: 1, classCode: 1, className: 1 };
     if (param.classCode) {
         filter.classCode = param.classCode;
     }
@@ -20,7 +20,7 @@ async function findPage(param) {
         filter[param.sortCol] = { $gt: param.lastValue };
     }
     if (param.elements) {
-        let elements = JSON.parse(param.elements)
+        let elements = JSON.parse(param.elements);
         elements.forEach((v) => {
             project[v] = 1;
         });

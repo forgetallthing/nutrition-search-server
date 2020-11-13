@@ -51,7 +51,7 @@
 | sortCol    | 是   | String | code              | 排序列               |
 | direction  | 是   | Int | 1/-1              | 升序或者降序         |
 | lastValue  | 否   | Int | 10                | 列表最后一个项的编码 |
-| classCode  | 否   | Int | 22                | 食物分类编码         |
+| classCode  | 否   | string | 22                | 食物分类编码         |
 | searchWord | 否   | String | 肉                | 搜索关键字           |
 | elements   | 是   | Array | ["Edible","Water"] | 获取的元素编码数组   |
 
