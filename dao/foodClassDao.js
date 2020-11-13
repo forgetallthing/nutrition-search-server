@@ -12,7 +12,8 @@ async function delClass(filter) {
 
 async function findClass(filter, cols) {
     return await getClassCollection()
-        .find(filter || {}, cols || { _id: 0 })
+        .find(filter || {})
+        .project(cols || { _id: 0 })
         .sort({ sn: 1 })
         .toArray();
 }
