@@ -20,7 +20,8 @@ async function findPage(param) {
         filter[param.sortCol] = { $gt: param.lastValue };
     }
     if (param.elements) {
-        param.elements.forEach((v) => {
+        let elements = JSON.parse(param.elements)
+        elements.forEach((v) => {
             project[v] = 1;
         });
     }
