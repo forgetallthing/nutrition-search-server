@@ -194,9 +194,10 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     if (err.status == 404) {
-        res.render('404/404.html');
+        res.send('服务器不想理你，并给向你扔了个404~');
+        // res.render('404/404.html');
     } else {
-        res.send('服务器500岁啦~');
+        res.send('服务器500岁啦，不要难为它~');
     }
 });
 
