@@ -32,7 +32,7 @@ router.get('/getElement', async function (req, res, next) {
 });
 
 router.get('/getClass', async function (req, res, next) {
-    let list = await foodClassDao.findClass();
+    let list = await foodClassDao.findClass({}, { _id: 0, sn: 0 });
     list.forEach((v) => {
         v.color = classMap[v.code].color;
         v.posi = classMap[v.code].posi;
