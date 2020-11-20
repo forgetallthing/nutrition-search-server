@@ -26,7 +26,7 @@ router.post('/', async function (req, res, next) {
     let loginTime = Date.now();
     let info = await userDao.saveUser({ openid }, { openid, loginTime });
 
-    res.send('respond with a resource');
+    res.send('ok');
 });
 
 module.exports = router;
