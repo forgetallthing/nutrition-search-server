@@ -4,7 +4,7 @@ const rp = require('request-promise-native');
 const CONFIG = require('../common/config');
 const userDao = require('../dao/userDao');
 
-router.post('/', async function (req, res, next) {
+router.post('/login', async function (req, res, next) {
     let p = req.body;
     if (!p.code) {
         res.send({ errmsg: '无临时登录凭证，请检查' });
@@ -16,17 +16,17 @@ router.post('/', async function (req, res, next) {
         method: 'get',
     };
     let result = JSON.parse(await rp(options));
-    console.log(resInfo);
     if (result.errcode) {
         res.send({ errmsg: '获取用户Id失败' + result.errcode + result.errmsg });
         return;
     }
 
-    let openid = res.openid;
+    let openid = result.openid;
     let loginTime = Date.now();
-    let info = await userDao.saveUser({ openid }, { openid, loginTime });
-
-    res.send('ok');
+    await userDao.saveUser({ openid }, { openid, loginTime });
+    let user = await userDao.findUser({ openid }, {});
+    
+    res.send({ userId: user._id });
 });
 
 module.exports = router;
