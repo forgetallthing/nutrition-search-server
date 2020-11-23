@@ -17,6 +17,8 @@ async function findPage(param) {
     if (param.classCode) filter.classCode = param.classCode;
     if (param.searchWord) filter.name = { $regex: param.searchWord };
     if (param.lastValue) filter[param.sortCol] = { $gt: param.lastValue };
+    if (param.collect) {
+    }
     param.elements.forEach((v) => {
         project[v] = 1;
     });
