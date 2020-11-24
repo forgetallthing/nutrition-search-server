@@ -34,7 +34,7 @@ async function findFoodInfo(filter, cols) {
 
 async function saveCollectFood(userId, foodCode) {
     await getCollectCollection().updateOne(
-        { userId },
+        { userId, foodCode },
         {
             $set: {
                 userId,
