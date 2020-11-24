@@ -4,8 +4,8 @@ const foodDataDao = require('../dao/foodDataDao');
 
 router.get('/getList', async function (req, res, next) {
     let p = req.query;
-    if (!param.sortCol) param.sortCol = 'code';
-    if (param.sortCol == 'code') p.lastValue = parseInt(p.lastValue);
+    if (!p.sortCol) p.sortCol = 'code';
+    if (p.sortCol == 'code') p.lastValue = parseInt(p.lastValue);
     p.elements = JSON.parse(p.elements || '[]');
     let foodList = await foodDataDao.findPage(p);
     let list = [];
