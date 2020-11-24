@@ -43,13 +43,22 @@ router.get('/getfoodInfo', async function (req, res, next) {
 
 router.get('/collectFood', async function (req, res, next) {
     let p = req.query;
+    if (!p.userId) {
+        res.send({ errmsg: '无用户ID' });
+        return;
+    }
     let foodCode = JSON.parse(p.code);
-    await foodDataDao.saveCollectFood(p.userId, foodCode);
+    let isCollect = await foodDataDao.findCollectByFood(p.userId, foodCode);
+    if (!isCollect) await foodDataDao.saveCollectFood(p.userId, foodCode);
     res.send({});
 });
 
 router.get('/unCollectFood', async function (req, res, next) {
     let p = req.query;
+    if (!p.userId) {
+        res.send({ errmsg: '无用户ID' });
+        return;
+    }
     let foodCode = JSON.parse(p.code);
     await foodDataDao.removeCollectByFood(p.userId, foodCode);
     res.send({});
