@@ -29,7 +29,7 @@ async function findPage(param) {
     param.elements.forEach((v) => {
         project[v] = 1;
     });
-    sort[param.sortCol || 'code'] = direction;
+    sort[param.sortCol] = direction;
     let pageSize = 10;
 
     return await getCollection().find(filter).project(project).sort(sort).limit(pageSize).toArray();
