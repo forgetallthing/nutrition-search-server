@@ -14,15 +14,22 @@ async function findPage(param) {
     let filter = {};
     let sort = {};
     let project = { _id: 0, code: 1, name: 1, info: 1, classCode: 1, className: 1 };
+    let direction = param.direction ? parseInt(param.direction) : 1;
     if (param.classCode) filter.classCode = param.classCode;
     if (param.searchWord) filter.name = { $regex: param.searchWord };
-    if (param.lastValue) filter[param.sortCol] = { $gt: param.lastValue };
+    if (param.lastValue) {
+        if (direction === 1) {
+            filter[param.sortCol] = { $gt: param.lastValue };
+        } else {
+            filter[param.sortCol] = { $lt: param.lastValue };
+        }
+    }
     if (param.collect) {
     }
     param.elements.forEach((v) => {
         project[v] = 1;
     });
-    sort[param.sortCol || 'code'] = param.direction ? parseInt(param.direction) : 1;
+    sort[param.sortCol || 'code'] = direction;
     let pageSize = 10;
 
     return await getCollection().find(filter).project(project).sort(sort).limit(pageSize).toArray();
