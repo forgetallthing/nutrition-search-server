@@ -18,13 +18,18 @@ router.get('/getList', async function (req, res, next) {
                 obj[key] = v[key];
             }
         }
+        foodCodes.push(obj.code);
         list.push(obj);
     });
 
     if (p.userId && !p.collect) {
         let collectList = await foodDataDao.findCollectByFoods(p.userId, foodCodes);
-        foodList.forEach((v) => {
-            if (collectList.find((val) => val.foodCode === v.code)) v.isCollect = 1;
+        list.forEach((v) => {
+            if (collectList.find((val) => val.foodCode === v.code)) {
+                v.isCollect = 1;
+            } else {
+                v.isCollect = 0;
+            }
         });
     }
     res.send({ list });
@@ -35,7 +40,12 @@ router.get('/getfoodInfo', async function (req, res, next) {
     let foodCode = JSON.parse(p.code);
     let info = await foodDataDao.findFoodInfo({ code: foodCode });
     if (p.userId) {
-        if (await foodDataDao.findCollectByFood(p.userId, foodCode)) info.isCollect = 1;
+        const isCollect = await foodDataDao.findCollectByFood(p.userId, foodCode);
+        if (isCollect) {
+            info.isCollect = 1;
+        } else {
+            info.isCollect = 0;
+        }
     }
 
     res.send({ info });

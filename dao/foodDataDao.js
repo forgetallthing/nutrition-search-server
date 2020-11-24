@@ -47,7 +47,7 @@ async function saveCollectFood(userId, foodCode) {
 
 async function findCollectFoods(userId) {
     return await getCollectCollection()
-        .findMany({ userId }, { projection: { _id: 0 } })
+        .find({ userId }, { projection: { _id: 0 } })
         .toArray();
 }
 
@@ -57,7 +57,7 @@ async function findCollectByFood(userId, foodCode) {
 
 async function findCollectByFoods(userId, foodCodes) {
     return await getCollectCollection()
-        .findMany({ userId, foodCode: { $in: foodCodes } }, { projection: { _id: 0 } })
+        .find({ userId, foodCode: { $in: foodCodes } }, { projection: { _id: 0 } })
         .toArray();
 }
 
