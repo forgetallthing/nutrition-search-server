@@ -39,6 +39,16 @@ async function findFoodInfo(filter, cols) {
     return await getCollection().findOne(filter || {}, { projection: cols || { _id: 0 } });
 }
 
+async function findFoodAllList() {
+    const project = {
+        name: 1,
+        code: 1,
+        classCode: 1,
+        _id: 0
+    }
+    return await getCollection().find({}).project(project).toArray();
+}
+
 async function saveCollectFood(userId, foodCode) {
     await getCollectCollection().updateOne(
         { userId, foodCode },
@@ -76,6 +86,7 @@ module.exports = {
     saveFoodData,
     findPage,
     findFoodInfo,
+    findFoodAllList,
     findCollectFoods,
     saveCollectFood,
     findCollectByFood,
