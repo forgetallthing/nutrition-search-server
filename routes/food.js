@@ -56,6 +56,11 @@ router.get('/getfoodInfo', async function (req, res, next) {
     res.send({ info });
 });
 
+router.get('/getfoodAllList', async function (req, res, next) {
+    let list = await foodDataDao.findFoodAllList();
+    res.send({ list });
+});
+
 router.get('/collectFood', async function (req, res, next) {
     let p = req.query;
     if (!p.userId) {
