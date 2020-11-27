@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const foodDataDao = require('../dao/foodDataDao');
 
+
+// todo:
+// 1.值相同的反复加载bug
+// 2.存成数值类型
 router.get('/getList', async function (req, res, next) {
     let p = req.query;
     if (!p.sortCol) p.sortCol = 'code';
