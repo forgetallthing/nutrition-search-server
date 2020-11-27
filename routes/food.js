@@ -57,7 +57,8 @@ router.get('/getfoodInfo', async function (req, res, next) {
 });
 
 router.get('/getfoodAllList', async function (req, res, next) {
-    let list = await foodDataDao.findFoodAllList();
+    let p = req.query;
+    let list = await foodDataDao.findFoodAllList(p);
     res.send({ list });
 });
 

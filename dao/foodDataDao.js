@@ -39,14 +39,16 @@ async function findFoodInfo(filter, cols) {
     return await getCollection().findOne(filter || {}, { projection: cols || { _id: 0 } });
 }
 
-async function findFoodAllList() {
+async function findFoodAllList(param) {
+    let filter = {};
     const project = {
         name: 1,
         code: 1,
         classCode: 1,
         _id: 0
     }
-    return await getCollection().find({}).project(project).toArray();
+    if (param.searchWord) filter.name = { $regex: param.searchWord };
+    return await getCollection().find(filter).project(project).toArray();
 }
 
 async function saveCollectFood(userId, foodCode) {
