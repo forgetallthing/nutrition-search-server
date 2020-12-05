@@ -180,7 +180,7 @@ app.use('/', indexRouter);
 app.use('/food', foodRouter);
 app.use('/foodClass', foodClassRouter);
 app.use('/user', userRouter);
-// app.use('/fetchData', fetchDataRouter);1
+app.use('/fetchData', fetchDataRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

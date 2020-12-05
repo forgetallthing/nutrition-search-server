@@ -17,22 +17,16 @@ async function findPage(param) {
     let direction = param.direction ? parseInt(param.direction) : 1;
     if (param.classCode) filter.classCode = param.classCode;
     if (param.searchWord) filter.name = { $regex: param.searchWord };
-    if (param.lastValue) {
-        if (direction === 1) {
-            filter[param.sortCol] = { $gt: param.lastValue };
-        } else {
-            filter[param.sortCol] = { $lt: param.lastValue };
-        }
-    }
     if (param.collect) {
     }
     param.elements.forEach((v) => {
         project[v] = 1;
     });
     sort[param.sortCol] = direction;
+    filter[param.sortCol] = { $ne: '' };
     let pageSize = 10;
 
-    return await getCollection().find(filter).project(project).sort(sort).limit(pageSize).toArray();
+    return await getCollection().find(filter).project(project).sort(sort).skip(param.count).limit(pageSize).toArray();
 }
 
 async function findFoodInfo(filter, cols) {
@@ -45,8 +39,8 @@ async function findFoodAllList(param) {
         name: 1,
         code: 1,
         classCode: 1,
-        _id: 0
-    }
+        _id: 0,
+    };
     if (param.searchWord) filter.name = { $regex: param.searchWord };
     return await getCollection().find(filter).project(project).toArray();
 }

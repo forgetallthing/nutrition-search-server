@@ -13,36 +13,36 @@ const elementClassDic = [
     { code: 'C4', name: '脂肪酸' },
 ];
 const elementDic = [
-    { code: 'Edible', name: '食部', class: 'C1' },
-    { code: 'Water', name: '水分', class: 'C1' },
-    { code: 'Energy', name: '能量', class: 'C1' },
-    { code: 'Protein', name: '蛋白质', class: 'C1' },
-    { code: 'Fat', name: '脂肪', class: 'C1' },
-    { code: 'Cholesterol', name: '胆固醇', class: 'C1' },
-    { code: 'Ash', name: '灰分', class: 'C1' },
-    { code: 'CHO', name: '碳水化合物', class: 'C1' },
-    { code: 'DietaryFiber', name: '总膳食纤维', class: 'C1' },
-    { code: 'Carotene', name: '胡萝卜素', class: 'C2' },
-    { code: 'Vitamin', name: '维生素A', class: 'C2' },
-    { code: 'αTE', name: 'α-TE', class: 'C2' },
-    { code: 'Thiamin', name: '硫胺素', class: 'C2' },
-    { code: 'Riboflavin', name: '核黄素', class: 'C2' },
-    { code: 'Niacin', name: '烟酸', class: 'C2' },
-    { code: 'VitaminC', name: '维生素C', class: 'C2' },
-    { code: 'Ca', name: '钙', class: 'C3' },
-    { code: 'P', name: '磷', class: 'C3' },
-    { code: 'K', name: '钾', class: 'C3' },
-    { code: 'Na', name: '钠', class: 'C3' },
-    { code: 'Mg', name: '镁', class: 'C3' },
-    { code: 'Fe', name: '铁', class: 'C3' },
-    { code: 'Zn', name: '锌', class: 'C3' },
-    { code: 'Se', name: '硒', class: 'C3' },
-    { code: 'Cu', name: '铜', class: 'C3' },
-    { code: 'Mn', name: '锰', class: 'C3' },
-    { code: 'I', name: '碘', class: 'C3' },
-    { code: 'SFA', name: '饱和脂肪酸', class: 'C4' },
-    { code: 'MUFA', name: '单不饱和脂肪酸', class: 'C4' },
-    { code: 'PUFA', name: '多不饱和脂肪酸', class: 'C4' },
+    { code: 'Edible', name: '食部', class: 'C1', unit: '%' },
+    { code: 'Water', name: '水分', class: 'C1', unit: 'g' },
+    { code: 'Energy', name: '能量', class: 'C1', unit: 'KJ' },
+    { code: 'Protein', name: '蛋白质', class: 'C1', unit: 'g' },
+    { code: 'Fat', name: '脂肪', class: 'C1', unit: 'g' },
+    { code: 'Cholesterol', name: '胆固醇', class: 'C1', unit: 'mg' },
+    { code: 'Ash', name: '灰分', class: 'C1', unit: 'g' },
+    { code: 'CHO', name: '碳水化合物', class: 'C1', unit: 'g' },
+    { code: 'DietaryFiber', name: '总膳食纤维', class: 'C1', unit: 'g' },
+    { code: 'Carotene', name: '胡萝卜素', class: 'C2', unit: 'mg' },
+    { code: 'Vitamin', name: '维生素A', class: 'C2', unit: 'μg' },
+    { code: 'αTE', name: 'α-TE', class: 'C2', unit: 'mg' },
+    { code: 'Thiamin', name: '硫胺素', class: 'C2', unit: 'mg' },
+    { code: 'Riboflavin', name: '核黄素', class: 'C2', unit: 'mg' },
+    { code: 'Niacin', name: '烟酸', class: 'C2', unit: 'mg' },
+    { code: 'VitaminC', name: '维生素C', class: 'C2', unit: 'mg' },
+    { code: 'Ca', name: '钙', class: 'C3', unit: 'mg' },
+    { code: 'P', name: '磷', class: 'C3', unit: 'mg' },
+    { code: 'K', name: '钾', class: 'C3', unit: 'mg' },
+    { code: 'Na', name: '钠', class: 'C3', unit: 'mg' },
+    { code: 'Mg', name: '镁', class: 'C3', unit: 'mg' },
+    { code: 'Fe', name: '铁', class: 'C3', unit: 'mg' },
+    { code: 'Zn', name: '锌', class: 'C3', unit: 'mg' },
+    { code: 'Se', name: '硒', class: 'C3', unit: 'μg' },
+    { code: 'Cu', name: '铜', class: 'C3', unit: 'mg' },
+    { code: 'Mn', name: '锰', class: 'C3', unit: 'mg' },
+    { code: 'I', name: '碘', class: 'C3', unit: 'μg' },
+    { code: 'SFA', name: '饱和脂肪酸', class: 'C4', unit: '%' },
+    { code: 'MUFA', name: '单不饱和脂肪酸', class: 'C4', unit: '%' },
+    { code: 'PUFA', name: '多不饱和脂肪酸', class: 'C4', unit: '%' },
 ];
 
 router.get('/fetchData', async (req, res, next) => {
@@ -86,6 +86,20 @@ async function getFoodInfo(info) {
 async function saveFoodInfo(info, data) {
     let saveTasks = [];
     data.forEach((v) => {
+        for (let i = 5; i < v.length; i++) {
+            if (v[i] === 'Tr') {
+                v[i] = 0;
+            } else if (v[i] == '—' || v[i] === 'un' || v[i] === '') {
+                v[i] = '';
+            } else {
+                let match = v[i].match(/^([0-9.]+)/);
+                if (match) {
+                    v[i] = parseFloat(match[0]);
+                } else {
+                    console.log(v[i]);
+                }
+            }
+        }
         let curItem = {
             classCode: info.classTopCode,
             className: info.classTopName,
