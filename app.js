@@ -17,6 +17,7 @@ const foodRouter = require('./routes/food');
 const foodClassRouter = require('./routes/foodClass');
 const fetchDataRouter = require('./routes/fetchData');
 const userRouter = require('./routes/user');
+const toolRouter = require('./routes/tool');
 const app = express();
 
 const MongoClient = require('mongodb').MongoClient;
@@ -180,6 +181,7 @@ app.use('/', indexRouter);
 app.use('/food', foodRouter);
 app.use('/foodClass', foodClassRouter);
 app.use('/user', userRouter);
+app.use('/tool', toolRouter);
 // app.use('/fetchData', fetchDataRouter);
 
 // catch 404 and forward to error handler
