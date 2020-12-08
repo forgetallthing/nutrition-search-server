@@ -1,5 +1,5 @@
-function getCollection() {
-    return global.mongodb.collection('tool');
+function getCompareCollection() {
+    return global.mongodb.collection('compareTool');
 }
 
 module.exports = {};
