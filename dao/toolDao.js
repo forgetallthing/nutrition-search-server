@@ -11,9 +11,18 @@ async function saveCompareRecord(filter, set) {
 }
 
 async function getCompareRecord(filter) {
-  return await getCompareCollection().find(filter).toArray();
+  return await getCompareCollection()
+    .find(filter)
+    .sort({ saveTime: -1 })
+    .toArray();
 }
+
+async function deleteCompareRecord(_id) {
+  await getCompareCollection().deleteOne({ _id: toObjectID(_id) });
+}
+
 module.exports = {
   saveCompareRecord,
   getCompareRecord,
+  deleteCompareRecord,
 };
