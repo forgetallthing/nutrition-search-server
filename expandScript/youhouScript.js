@@ -34,7 +34,9 @@
          * 4.点击登录即可。
          */
         userInput.addEventListener('change', function () {
-            if (/^su_.*/.test(userInput.value)) userInput.value = 'su';
+            if (/^su_.*/.test(userInput.value)) {
+                userInput.value = 'su';
+            }
         });
     }
 
