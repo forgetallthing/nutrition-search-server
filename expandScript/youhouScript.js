@@ -25,10 +25,17 @@
         imgYzm.onload = function () {
             if (imgYzm.src.indexOf('login/addCode') != -1) readVcodeImg();
         };
+
+        /**
+         * 当localhost访问时，同一用户su可能有不同的密码，可使用以下方案解决：
+         * 1.修改chrome的密码管理，su的密码为通用密码(无需改动)，设置用户名su_b的密码为b系统的密码；
+         * 2.如想输入b系统的su用户的密码，可选择su_b；
+         * 3.chrome自动填充好用户名和密码之后，本脚本自动将su_b修改为su；
+         * 4.点击登录即可。
+         */
         userInput.addEventListener('change', function () {
             if (/^su_.*/.test(userInput.value)) userInput.value = 'su';
         });
-        readVcodeImg();
     }
 
     function readVcodeImg() {
