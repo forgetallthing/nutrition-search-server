@@ -17,13 +17,17 @@ async function findPage(param) {
     let direction = param.direction ? parseInt(param.direction) : 1;
     if (param.classCode) filter.classCode = param.classCode;
     if (param.searchWord) filter.name = { $regex: param.searchWord };
-    if (param.collect) {
+
+    if (parseInt(param.collect)) {
+        filter['code'] = { $in: param.codes };
     }
     param.elements.forEach((v) => {
         project[v] = 1;
     });
     sort[param.sortCol] = direction;
-    filter[param.sortCol] = { $ne: '' };
+    if(!filter[param.sortCol]){
+        filter[param.sortCol] = { $ne: '' };
+    }
     let pageSize = 10;
 
     return await getCollection().find(filter).project(project).sort(sort).skip(param.count).limit(pageSize).toArray();
